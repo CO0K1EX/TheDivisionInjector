@@ -122,7 +122,7 @@ int main()
 
 	const char* processName = "thedivision.exe";
 
-	//const char* processName = "Notepad.exe"; // For testing
+	//const char* processName = "Notepad.exe";  For testing
 
 	if (!SearchProcess(processName))
 	{
