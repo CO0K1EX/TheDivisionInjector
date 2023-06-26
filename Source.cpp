@@ -122,7 +122,7 @@ int main()
 
 	const char* processName = "thedivision.exe";
 
-	//const char* processName = "Notepad.exe"; // For testing
+	//const char* processName = "Notepad.exe"; For testing
 
 	if (!SearchProcess(processName))
 	{
@@ -158,10 +158,11 @@ int main()
 		{
 			InjectDLL(processGame, dllPath.c_str());
 
-			if (InjectDLL == FALSE)
+			if (processGame == NULL)
 			{
 				MessageBoxExW(NULL, L"Failed to inject the game, please try again!", L"FAILED_INJECT_GAME", MB_OK | MB_ICONERROR, LANG_ENGLISH);
 				std::cout << "\n[MESSAGE] Failed to inject the game, please try again!\n\n";
+				std::cout << GetLastError();
 				system("pause");
 				return EXIT_FAILURE;
 			}
