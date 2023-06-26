@@ -122,8 +122,6 @@ int main()
 
 	const char* processName = "thedivision.exe";
 
-	//const char* processName = "Notepad.exe"; For testing
-
 	if (!SearchProcess(processName))
 	{
 		std::cout << "Process: " << dye::red_on_black("Not found ");
