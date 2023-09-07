@@ -137,7 +137,7 @@ int main()
 		std::cout << dye::yellow_on_black("DLL injector for The Division | version 1.0.0\n");
 		std::cout << "\nCreator by CO0K1E\n\n";
 
-		std::string dllPath, procId;
+		std::string dllPath;
 		std::cout << "DLL path: ";
 		std::cin >> dllPath;
 
