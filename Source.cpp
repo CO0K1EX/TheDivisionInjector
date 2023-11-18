@@ -1,6 +1,5 @@
 #include "includes.h"
 
-
 DWORD SearchProcess(const char* processName)
 {
 	DWORD processId = 0;
@@ -104,8 +103,6 @@ int main()
 	if (!IsAdmin())
 	{
 		MessageBoxExW(NULL, L"Run the program as administrator!", L"RIGHTS_ADMINISTRATOR_FAILED", MB_OK | MB_ICONEXCLAMATION, LANG_ENGLISH);
-		std::cout << "[MESSAGE] Run the program as administrator and try again!\n\n";
-		system("pause");
 		return EXIT_FAILURE;
 	}
 
@@ -114,9 +111,7 @@ int main()
 	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		MessageBoxExW(NULL, L"The injector is already launched!", L"APP_LAUNCH", MB_OK | MB_ICONSTOP, LANG_ENGLISH);
-		std::cout << "[MESSAGE] The injector is already launched!\n";
 		CloseHandle(hMutex);
-		system("pause");
 		return EXIT_FAILURE;
 	}
 
@@ -148,8 +143,6 @@ int main()
 		if (PathFileExistsA(dllPath.c_str()) == FALSE)
 		{
 			MessageBoxExW(NULL, L"DLL file does not exist!", L"DLL_FILE_NOT_FOUND", MB_OK | MB_ICONERROR, LANG_ENGLISH);
-			std::cout << "\n[MESSAGE] DLL file does not exist!\n\n";
-			system("pause");
 			return EXIT_FAILURE;
 		}
 		else
@@ -159,16 +152,11 @@ int main()
 			if (processGame == NULL)
 			{
 				MessageBoxExW(NULL, L"Failed to inject the game, please try again!", L"FAILED_INJECT_GAME", MB_OK | MB_ICONERROR, LANG_ENGLISH);
-				std::cout << "\n[MESSAGE] Failed to inject the game, please try again!\n\n";
-				std::cout << GetLastError();
-				system("pause");
 				return EXIT_FAILURE;
 			}
 			else
 			{
 				MessageBoxExW(NULL, L"Success, game injected!", L"SUCCESS_INJECT_GAME", MB_OK | MB_ICONINFORMATION, LANG_ENGLISH);
-				printf("\n[MESSAGE] Success, game injected!\n\n");
-				system("pause");
 				return EXIT_SUCCESS;
 			}
 		}
