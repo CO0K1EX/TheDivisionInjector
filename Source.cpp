@@ -8,12 +8,14 @@
 int main()
 {
 	SetConsoleTitleW(L"DivisionInjector");
-
-	system("cls");
-
+	
 	ProcessFinder objProcessFinder;
 	Inject objInject;
 	WindowLock objWindowLock;
+
+	objWindowLock.WindowSizeLock();
+
+	system("cls");
 
 
 	if (!objProcessFinder.isProcessFound())
