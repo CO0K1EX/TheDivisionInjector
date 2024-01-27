@@ -4,35 +4,43 @@
 #include "Inject.h"
 #include "WindowLock.h"
 
-int main()
+ProcessFinder objProcessFinder;
+Inject objInject;
+WindowLock objWindowLock;
+
+DWORD process_name_dw = 0;
+
+void processStatus()
 {
-	SetConsoleTitleW(L"DivisionInjector");
-	
-	ProcessFinder objProcessFinder;
-	Inject objInject;
-	WindowLock objWindowLock;
-
-	objWindowLock.WindowSizeLock();
-
-	DWORD processGame = 0;
-
-	processGame = objProcessFinder.SearchProcess(processName);
+	system("cls");
 
 	if (!objProcessFinder.isProcessFound())
 	{
 		std::cout << "Process: " << dye::red_on_black("Not found");
-		Sleep(2500);
-		return EXIT_FAILURE;
+		Sleep(2000);
+		processStatus();
 	}
+	else
+	{
+		std::cout << "Process: " << dye::green_on_black("Found");
+		Sleep(2500);
+	}
+}
 
-	std::cout << "Process: " << dye::green_on_black("Found");
-	Sleep(2000);
+int main()
+{
+	SetConsoleTitleW(L"DivisionInjector");
+	
+	objWindowLock.WindowSizeLock();
+
+	processStatus();
+
+	process_name_dw = objProcessFinder.SearchProcess(process_name);
 
 	system("cls");
 
 	std::cout << dye::yellow_on_black("DLL injector for The Division | version 1.0.0\n\nCreator by CO0K1E\n\n");
-
-	std::string dllPath, procId;
+	std::string dllPath;
 	std::cout << "DLL path: ";
 	std::cin >> dllPath;
 
@@ -42,7 +50,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 	
-	if (objInject.InjectDLL(processGame, dllPath.c_str()) == 0)
+	if (objInject.InjectDLL(process_name_dw, dllPath.c_str()) == 0)
 	{
 		MessageBox(0, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
 		return EXIT_SUCCESS;
