@@ -52,12 +52,12 @@ int main()
 	
 	if (objInject.InjectDLL(process_name_dw, dllPath.c_str()) == 0)
 	{
-		MessageBox(0, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
+		MessageBox(NULL, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
 		return EXIT_SUCCESS;
 	}
 	else
 	{
-		MessageBox(0, "Failed to inject the game", "Oh uh", MB_OK | MB_ICONERROR);
+		MessageBox(NULL, "Failed to inject the game", "Oh uh", MB_OK | MB_ICONERROR);
 		return EXIT_FAILURE;
 	}
 }
