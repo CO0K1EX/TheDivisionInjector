@@ -46,18 +46,18 @@ int main()
 
 	if (!PathFileExistsA(dllPath.c_str()))
 	{
-		MessageBox(NULL, "DLL file does not exist!", "Oh uh", MB_OK | MB_ICONERROR);
-		return EXIT_FAILURE;
+		MessageBox(nullptr, "DLL file does not exist!", "Oh uh", MB_OK | MB_ICONERROR);
+		return 1;
 	}
 	
 	if (objInject.InjectDLL(process_name_dw, dllPath.c_str()) == 0)
 	{
-		MessageBox(NULL, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
-		return EXIT_SUCCESS;
+		MessageBox(nullptr, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
+		return 0;
 	}
 	else
 	{
-		MessageBox(NULL, "Failed to inject the game", "Oh uh", MB_OK | MB_ICONERROR);
-		return EXIT_FAILURE;
+		MessageBox(nullptr, "Failed to inject the game", "Oh uh", MB_OK | MB_ICONERROR);
+		return 1;
 	}
 }
