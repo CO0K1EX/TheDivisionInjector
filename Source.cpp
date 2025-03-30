@@ -1,63 +1,70 @@
-#include "Libraries.h"
+﻿#include <iostream>
+#include <Windows.h>
 
 #include "ProcessFinder.h"
 #include "Inject.h"
-#include "WindowLock.h"
+#include "Console.h"
 
-ProcessFinder objProcessFinder;
-Inject objInject;
-WindowLock objWindowLock;
+ProcessFinder procFinder;
+Inject inject;
+Console console;
 
-DWORD process_name_dw = 0;
+DWORD dwProcessName = 0;
 
-void processStatus()
+void ProcessStatus()
 {
-	system("cls");
-
-	if (!objProcessFinder.isProcessFound())
+	while (!procFinder.isProcessFound())
 	{
-		std::cout << "Process: " << dye::red_on_black("Not found");
+		std::cout << "\rProcess: " << "\033[31mNot found\033[0m" << std::flush;
 		Sleep(2000);
-		processStatus();
 	}
-	else
-	{
-		std::cout << "Process: " << dye::green_on_black("Found");
-		Sleep(2500);
-	}
+
+	std::cout << "\r\033[2K";
+	std::cout << "Process: " << "\033[32mFound\033[0m" << std::flush;
+	Sleep(2000);
 }
 
 int main()
 {
-	SetConsoleTitleW(L"DivisionInjector");
+	SetConsoleTitleA("DivisionInjector v1.5");
 	
-	objWindowLock.WindowSizeLock();
+	console.ConsoleSizeLock();
 
-	processStatus();
+	console.EnableANSI();
 
-	process_name_dw = objProcessFinder.SearchProcess(process_name);
+	std::cout << "\033[33m   ___  _      _     _           ____       _         __          \033[0m\n";
+	std::cout << "\033[33m  / _ \\(_)  __(_)__ (_)__  ___  /  _/__    (_)__ ____/ /____  ____\033[0m\n";
+	std::cout << "\033[33m / // / / |/ / (_-</ / _ \\/ _ \\_/ // _ \\  / / -_) __/ __/ _ \\/ __/\033[0m\n";
+	std::cout << "\033[33m/____/_/|___/_/___/_/\\___/_//_/___/_//_/_/ /\\__/\\__/\\__/\\___/_/   \033[0m\n";
+	std::cout << "\033[33m                                      |___/                       \033[0m\n";
 
-	system("cls");
+	std::cout << "DLL Injector for The Division | \033[5mMade by CO0K1E\033[0m\n\n";
 
-	std::cout << dye::yellow_on_black("DLL injector for The Division | version 1.0.0\n\nCreator by CO0K1E\n\n");
+	ProcessStatus();
+
+	dwProcessName = procFinder.ProcessSearch(procFinder.processName);
+
+	std::cout << "\r\033[2K";
+
 	std::string dllPath;
 	std::cout << "DLL path: ";
 	std::cin >> dllPath;
 
 	if (!PathFileExistsA(dllPath.c_str()))
 	{
-		MessageBox(nullptr, "DLL file does not exist!", "Oh uh", MB_OK | MB_ICONERROR);
+		MessageBox(nullptr, "DLL file does not exist.", "Error", MB_OK | MB_ICONERROR);
 		return 1;
 	}
-	
-	if (objInject.InjectDLL(process_name_dw, dllPath.c_str()) == 0)
+
+	if (!inject.InjectDLL(dwProcessName, dllPath.c_str()))
 	{
-		MessageBox(nullptr, "Success, game injected", "", MB_OK | MB_ICONINFORMATION);
-		return 0;
+		MessageBox(nullptr, "Success, game injected.", "", MB_OK | MB_ICONINFORMATION);
 	}
 	else
 	{
-		MessageBox(nullptr, "Failed to inject the game", "Oh uh", MB_OK | MB_ICONERROR);
+		MessageBox(nullptr, "Failed to inject the game", "Error", MB_OK | MB_ICONERROR);
 		return 1;
 	}
+
+	return 0;
 }

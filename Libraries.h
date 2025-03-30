@@ -7,8 +7,6 @@
 #include <Shlwapi.h>
 #include <tchar.h>
 
-#include "color.hpp"
-
 #pragma comment(lib,"shlwapi.lib")
 
 #define print(format, ...) frprintf (stderr,format, __VA_ARGS__)

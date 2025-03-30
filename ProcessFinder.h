@@ -1,14 +1,14 @@
 #pragma once
+
 #include "Libraries.h"
 
-const char* process_name = "thedivision.exe";
 
 class ProcessFinder
 {
 public:
-	DWORD SearchProcess(const char* process_name)
+	DWORD ProcessSearch(const char* process_name)
 	{
-		DWORD processId = 0;
+		DWORD processID = 0;
 
 		HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
@@ -23,19 +23,22 @@ public:
 				{
 					if (_stricmp(processEntry.szExeFile, process_name) == 0)
 					{
-						processId = processEntry.th32ProcessID;
+						processID = processEntry.th32ProcessID;
 						break;
 					}
 				} while (Process32Next(hSnapshot, &processEntry));
 			}
 			CloseHandle(hSnapshot);
 		}
-		return processId;
+
+		return processID;
 	}
+
+	const char* processName = "thedivision.exe";
 
 	bool isProcessFound()
 	{
-		if (!SearchProcess(process_name))
+		if (!ProcessSearch(processName))
 		{
 			return false;
 		}
