@@ -2,7 +2,6 @@
 
 #include "Libraries.h"
 
-
 class ProcessFinder
 {
 public:
