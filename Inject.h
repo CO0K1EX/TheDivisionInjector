@@ -13,7 +13,7 @@ public:
 
 		if (hProc == INVALID_HANDLE_VALUE)
 		{
-			return 1;
+			return FALSE;
 		}
 
 		void* loc = VirtualAllocEx(hProc, 0, MAX_PATH, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
@@ -24,7 +24,7 @@ public:
 		{
 			CloseHandle(hProc);
 
-			return 1;
+			return FALSE;
 		}
 
 		HANDLE hThread = CreateRemoteThread(hProc, 0, 0, (LPTHREAD_START_ROUTINE)LoadLibraryA, loc, 0, 0);
@@ -35,7 +35,7 @@ public:
 			
 			CloseHandle(hProc);
 			
-			return 1;
+			return FALSE;
 		}
 
 		CloseHandle(hProc);
@@ -44,7 +44,7 @@ public:
 		
 		CloseHandle(hThread);
 		
-		return 0;
+		return TRUE;
 	}
 };
 
